@@ -5,8 +5,7 @@
 (defcfg
   sequence-timeout 2000
   sequence-input-mode visible-backspaced
-  ;; sequence-always-on true
-  )
+  sequence-always-on true)
 
 {{SEQUENCES}}
 
@@ -22,20 +21,33 @@
 ;; (deffakekeys git-reflog (macro g i t spc r e f l o g))
 ;; (deffakekeys git-idk    (macro g i t spc i d k))
 
+(defvirtualkeys
+  layer-toggle-lay (one-shot 2000 (layer-while-held lay))
+  layer-toggle-q1  (layer-while-held q1)
+  layer-toggle-q2  (layer-while-held q2)
+  )
+
 (defalias
-  bse (layer-switch base)
-  crd (layer-switch taipo)
-  lay (layer-toggle lay)
+  reset (multi
+          (on-press release-virtualkey layer-toggle-q1)
+          (on-press release-virtualkey layer-toggle-q2)
+          (on-press release-virtualkey layer-toggle-taipo))
+  qt1 (multi @reset (macro 10 (on-press press-virtualkey layer-toggle-q1)))
+  qt2 (multi @reset (macro 10 (on-press press-virtualkey layer-toggle-q2)))
+  lay (tap-dance 200 (@taipo (multi @reset (on-release tap-virtualkey layer-toggle-lay))))
+
+  bse (multi @reset (layer-switch bse))
   ext (layer-toggle ext)
   num (layer-toggle num)
   sym (layer-toggle sym)
   fun (layer-toggle fun)
+
   sa  (one-shot 2000 lalt)
   sm  (one-shot 2000 lmet)
   ss  (one-shot 2000 lshft)
   sc  (one-shot 2000 lctrl)
-  ★   (macro sldr nop0)
-{{ALIASES}}
+
+  ★   nop0
   )
 
 #|
@@ -62,9 +74,9 @@
 (deflayer base
   _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  @crd @v   @m   @l   @c   @p   XX   @b   @★   @u   @o   @q   @crd XX
-  @ext @s   @t   @r   @d   @y   XX   @f   @n   @e   @a   @i   @ext 
-  @x   @k   @j   @g   @w   XX   XX   @z   @h   @,   @.   @/
+  @crd v    m    l    c    p    XX   b    @★   u    o    q    @crd XX
+  @ext s    t    r    d    y    XX   f    n    e    a    i    @ext 
+  x    k    j    g    w    XX   XX   z    h    ,    .    / 
   XX   XX   @num           spc            @num XX   XX   XX
   )
 

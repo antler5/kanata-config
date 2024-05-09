@@ -10,19 +10,6 @@
              (ice-9 match)
              (ice-9 textual-ports))
 
-(define alphabet
-  '(#\a #\b #\c #\d #\e #\f #\g #\h #\i #\j #\k #\l #\m
-    #\n #\o #\p #\q #\r #\s #\t #\u #\v #\w #\x #\y #\z
-    #\. #\, #\/))
-
-(define aliases
-  (string-join
-    (let ((i -1))
-      (map (lambda (letter)
-             (format #f "  ~a (macro sldr ~a)" letter letter))
-           alphabet))
-    "\n"))
-
 (define sequences
   (string-join
     (let ((i -1))
@@ -68,6 +55,5 @@
           'pre (format #f "~a" item) 'post)))))
 
 (define (main)
-  (display ((compose (make-subst "\\{\\{SEQUENCES\\}\\}" sequences)
-                     (make-subst "\\{\\{ALIASES\\}\\}" aliases))
+  (display ((compose (make-subst "\\{\\{SEQUENCES\\}\\}" sequences))
             (call-with-input-file "magic-strdy.kbd.in" get-string-all))))
