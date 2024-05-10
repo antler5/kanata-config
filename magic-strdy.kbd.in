@@ -45,6 +45,9 @@
 (defvirtualkeys
   layer-while-held-q1  (layer-while-held q1)
   layer-while-held-q2  (layer-while-held q2)
+  bspc (switch
+         (lsft) del break
+         () bspc break)
   )
 
 (defalias

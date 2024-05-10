@@ -25,13 +25,31 @@
   tm2 (chord taipo TB2))
 
 (defvirtualkeys
+  taipo-hold (one-shot-release 2000 (layer-while-held taipo))
   layer-toggle-taipo (layer-while-held taipo)
   layer-toggle-taipo-meta (layer-while-held taipo-meta)
+  taipo-lmet (one-shot-release 2000 lmet)
+  taipo-lsft (one-shot-release 2000 lsft)
+  taipo-lalt (one-shot-release 2000 lalt)
+  taipo-lctl (one-shot-release 2000 lctl)
   )
 
+{{SEQUENCES}}
+
 (defalias
+  0 0
+  1 1
+  2 2
+  3 3
+  4 4
+  5 5
+  6 6
+  7 7
+  8 8
+  9 9
   taipo (on-press toggle-virtualkey layer-toggle-taipo)
   taipo-meta (on-press toggle-virtualkey layer-toggle-taipo-meta)
+  taipo-hold (on-press tap-virtualkey taipo-hold)
   )
 
 (deflayer taipo
@@ -52,17 +70,12 @@
   _    _    @tm1           @tm2           @tm1 _    _    _
   )
 
-;; macro'd
 (defchords taipo 5000
   ;; (R S N I A O T E TB1 TB2)
   (R S N I A O T E        ) @taipo-meta
+  (                TB1    ) (macro spc 10 @taipo-hold)
+  (                    TB2) (macro (on-press tap-virtualkey bspc) 10 @taipo-hold)
 {{CHORDS}}
-  (R       A              ) (one-shot 2000 lmet)
-  (      I       E        ) (one-shot 2000 lsft)
-  (  S       O            ) (one-shot 2000 lalt)
-  (    N       T          ) (one-shot 2000 lctl)
-  (  S N I                ) tab
-  (          O T E        ) ret
   )
 
 (defchords taipo-meta 5000
