@@ -40,7 +40,7 @@
   _    @tar @tas @tan @tai _    _    _    @tai @tan @tas @tar _    _
   _    @taa @tao @tat @tae _    _    _    @tae @tat @tao @taa _
   _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    @ta2           @ta1           @ta2 _    _    _
+  _    _    @ta1           @ta2           @ta1 _    _    _
   )
 
 (deflayer taipo-meta
@@ -49,7 +49,7 @@
   _    @tmr @tms @tmn @tmi _    _    _    @tmi @tmn @tms @tmr _    _
   _    @tma @tmo @tmt @tme _    _    _    @tme @tmt @tmo @tma _
   _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    @tm2           @tm1           @tm2 _    _    _
+  _    _    @tm1           @tm2           @tm1 _    _    _
   )
 
 ;; macro'd
