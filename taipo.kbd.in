@@ -24,10 +24,20 @@
   tm1 (chord taipo TB1)
   tm2 (chord taipo TB2))
 
+(defvirtualkeys
+  layer-toggle-taipo (layer-while-held taipo)
+  layer-toggle-taipo-meta (layer-while-held taipo-meta)
+  )
+
+(defalias
+  taipo (on-press toggle-virtualkey layer-toggle-taipo)
+  taipo-meta (on-press toggle-virtualkey layer-toggle-taipo-meta)
+  )
+
 (deflayer taipo
   _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  @bse @tar @tas @tan @tai _    _    _    @tai @tan @tas @tar _    _
+  _    @tar @tas @tan @tai _    _    _    @tai @tan @tas @tar _    _
   _    @taa @tao @tat @tae _    _    _    @tae @tat @tao @taa _
   _    _    _    _    _    _    _    _    _    _    _    _
   _    _    @ta2           @ta1           @ta2 _    _    _
@@ -36,7 +46,7 @@
 (deflayer taipo-meta
   _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  @bse @tmr @tms @tmn @tmi _    _    _    @tmi @tmn @tms @tmr _    _
+  _    @tmr @tms @tmn @tmi _    _    _    @tmi @tmn @tms @tmr _    _
   _    @tma @tmo @tmt @tme _    _    _    @tme @tmt @tmo @tma _
   _    _    _    _    _    _    _    _    _    _    _    _
   _    _    @tm2           @tm1           @tm2 _    _    _
@@ -45,7 +55,7 @@
 ;; macro'd
 (defchords taipo 5000
   ;; (R S N I A O T E TB1 TB2)
-  (R S N I A O T E        ) (layer-switch taipo-meta)
+  (R S N I A O T E        ) @taipo-meta
 {{CHORDS}}
   (R       A              ) (one-shot 2000 lmet)
   (      I       E        ) (one-shot 2000 lsft)
@@ -55,116 +65,8 @@
   (          O T E        ) ret
   )
 
-;; ;; orig
-;; (defchords taipo 5000
-;;   ;; (R S N I A O T E TB1 TB2)
-;;   (R S N I A O T E        ) (layer-switch taipo-meta)
-;;   (        A              ) a
-;;   (        A       TB1    ) A
-;;   (        A           TB2) <
-;;   (R S                    ) b
-;;   (R S             TB1    ) B
-;;   (R S                 TB2) 9
-;;   (          O   E        ) c
-;;   (          O   E TB1    ) C
-;;   (          O   E     TB2) 1
-;;   (        A     E        ) d
-;;   (        A     E TB1    ) D
-;;   (        A     E     TB2) @
-;;   (              E        ) e
-;;   (              E TB1    ) E
-;;   (              E     TB2) (
-;;   (  S   I                ) f
-;;   (  S   I         TB1    ) F
-;;   (  S   I             TB2) 6
-;;   (R     I                ) g
-;;   (R     I         TB1    ) G
-;;   (R     I             TB2) #
-;;   (            T E        ) h
-;;   (            T E TB1    ) H
-;;   (            T E     TB2) 0
-;;   (      I                ) i
-;;   (      I         TB1    ) I
-;;   (      I             TB2) )
-;;   (    N   A              ) j
-;;   (    N   A       TB1    ) J
-;;   (    N   A           TB2) =
-;;   (      I   O            ) k
-;;   (      I   O     TB1    ) K
-;;   (      I   O         TB2) +
-;;   (        A O            ) l
-;;   (        A O     TB1    ) L
-;;   (        A O         TB2) 4
-;;   (R             E        ) m
-;;   (R             E TB1    ) M
-;;   (R             E     TB2) $
-;;   (    N                  ) n
-;;   (    N           TB1    ) N
-;;   (    N               TB2) ]
-;;   (          O            ) o
-;;   (          O     TB1    ) O
-;;   (          O         TB2) {
-;;   (  S N                  ) p
-;;   (  S N           TB1    ) P
-;;   (  S N               TB2) 7
-;;   (        A   T          ) q
-;;   (        A   T   TB1    ) Q
-;;   (        A   T       TB2) 3
-;;   (R                      ) r
-;;   (R               TB1    ) R
-;;   (R                   TB2) >
-;;   (  S                    ) s
-;;   (  S             TB1    ) S
-;;   (  S                 TB2) }
-;;   (            T          ) t
-;;   (            T   TB1    ) T
-;;   (            T       TB2) [
-;;   (          O T          ) u
-;;   (          O T   TB1    ) U
-;;   (          O T       TB2) 2
-;;   (  S           E        ) v
-;;   (  S           E TB1    ) V
-;;   (  S           E     TB2) *
-;;   (      I A              ) w
-;;   (      I A       TB1    ) W
-;;   (      I A           TB2) &
-;;   (R           T          ) x
-;;   (R           T   TB1    ) X
-;;   (R           T       TB2) ^
-;;   (    N I                ) y
-;;   (R   N                  ) z
-;;   (R   N           TB1    ) Z
-;;   (R   N               TB2) 8
-;; 
-;;   (  S         T          ) /
-;;   (  S         T   TB1    ) \
-;;   (  S         T       TB2) |
-;;   (    N     O            ) -
-;;   (    N     O     TB1    ) _
-;;   (    N     O         TB2) %
-;;   (R         O            ) :
-;;   (R         O     TB1    ) ;
-;;   (R         O         TB2) _
-;;   (      I     T          ) ?
-;;   (      I     T   TB1    ) !
-;;   (      I     T       TB2) _
-;;   (    N         E        ) ,
-;;   (    N         E TB1    ) .
-;;   (    N         E     TB2) ~
-;;   (  S     A              ) '
-;;   (  S     A       TB1    ) "
-;;   (  S     A           TB2) `
-;; 
-;;   (R       A              ) (one-shot 2000 lmet)
-;;   (      I       E        ) (one-shot 2000 lsft)
-;;   (  S       O            ) (one-shot 2000 lalt)
-;;   (    N       T          ) (one-shot 2000 lctl)
-;;   (  S N I                ) tab
-;;   (          O T E        ) ret
-;;   )
-
 (defchords taipo-meta 5000
-  (R S N I A O T E) (layer-switch taipo)
+  (R S N I A O T E) @taipo-meta
   ;; (      S E Y) spc
   ;; (A R T      ) caps ;; should technically be shift lock, probably need to use fake keys for that
   ;; (A R        ) bspc

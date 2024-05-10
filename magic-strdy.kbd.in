@@ -7,6 +7,27 @@
   sequence-input-mode visible-backspaced
   sequence-always-on true)
 
+(defsrc
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt rmet cmp  rctl
+  )
+
+#| magic_strdy_angle_mod |#
+(deflayer bse
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  @lay v    m    l    c    p    XX   b    @★   u    o    q    @lay XX
+  @ext s    t    r    d    y    XX   f    n    e    a    i    @ext
+  x    k    j    g    w    XX   XX   z    h    ,    .    /
+  XX   XX   @num           spc            @num XX   XX   XX
+  )
+
+(include taipo.kbd)
+
 {{SEQUENCES}}
 
 ;; Keeping for reference
@@ -61,29 +82,28 @@
   )
 |#
 
-(defsrc
-  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
-  caps a    s    d    f    g    h    j    k    l    ;    '    ret
-  lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl lmet lalt           spc            ralt rmet cmp  rctl
-  )
-
-#| magic_strdy_angle_mod |#
-(deflayer base
+(deflayer q1
   _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  @crd v    m    l    c    p    XX   b    @★   u    o    q    @crd XX
-  @ext s    t    r    d    y    XX   f    n    e    a    i    @ext 
-  x    k    j    g    w    XX   XX   z    h    ,    .    / 
-  XX   XX   @num           spc            @num XX   XX   XX
+  _    q    w    e    r    t    y    u    i    o    p    _    _    _
+  _    a    s    d    f    g    h    j    k    l    ;    _    _
+  _    z    x    c    v    b    n    m    ,    .    /    _
+  _    _    _              _              _    _    _    _
+  )
+
+(deflayer q2
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    q    w    e    r    t    XX   y    u    i    o    p    _    _
+  _    a    s    d    f    g    XX   h    j    k    l    ;    _
+  z    x    c    v    b    XX   XX   n    m    _    _    _
+  _    _    _              _              _    _    _    _
   )
 
 (deflayer lay
   _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    @bse @qt1 @qt2 _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _              _              _    _    _    _
@@ -92,10 +112,10 @@
 (deflayer ext
   _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    @lay _    _    _    _    home pgdn pgup end  _    _
+  _    _    _    _    _    _    _    _    home pgdn pgup end  _    _
   _    @sa  @sm  @ss  @sc  _    _    ret  ◀    ▼    ▲    ▶    _
   _    _    _    _    _    _    _    _    bspc tab  ins  esc
-  _    _    @sym           bspc           _    _    _    _
+  _    _    @sym           bspc           @sym _    _    _
   )
 
 (deflayer num
@@ -124,5 +144,3 @@
   _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _              _              _    _    _    _
   )
-
-(include taipo.kbd)
