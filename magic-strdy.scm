@@ -19,10 +19,13 @@
               (format #f "(defseq seq-~a (~a))~%(deffakekeys seq-~a (macro ~a)))"
                 i binding
                 i (string-join
-                    (let ((lst (map string (string->list output))))
-                      (cons* (car lst)
+                    (let* ((lst (map string (string->list output)))
+                           (->char (lambda (c)
+                                     (cond ((equal? c " ") "spc")
+                                           (else c)))))
+                      (cons* (->char (car lst))
                              "(unmod"
-                             (cdr lst)))
+                             (map ->char (cdr lst))))
                     " "))))
            '(("a nop0" "ao")
              ("b nop0" "be")
@@ -43,6 +46,7 @@
              ("u nop0" "ue")
              ("y nop0" "yp")
              (". nop0" ".o")
+             ("spc r t" " pr")
              )))
     "\n"))
 
