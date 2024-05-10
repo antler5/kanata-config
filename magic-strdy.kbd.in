@@ -20,7 +20,7 @@
 (deflayer bse
   _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  @lay v    m    l    c    p    XX   b    @★   u    o    q    @lay XX
+  @crd v    m    l    c    p    XX   b    @★   u    o    q    @crd XX
   @ext s    t    r    d    y    XX   f    n    e    a    i    @ext
   x    k    j    g    w    XX   XX   z    h    ,    .    /
   XX   XX   @num           spc            @num XX   XX   XX
@@ -43,25 +43,29 @@
 ;; (deffakekeys git-idk    (macro g i t spc i d k))
 
 (defvirtualkeys
-  layer-toggle-lay (one-shot 2000 (layer-while-held lay))
-  layer-toggle-q1  (layer-while-held q1)
-  layer-toggle-q2  (layer-while-held q2)
+  layer-while-held-q1  (layer-while-held q1)
+  layer-while-held-q2  (layer-while-held q2)
   )
 
 (defalias
   reset (multi
-          (on-press release-virtualkey layer-toggle-q1)
-          (on-press release-virtualkey layer-toggle-q2)
-          (on-press release-virtualkey layer-toggle-taipo))
-  qt1 (multi @reset (macro 10 (on-press press-virtualkey layer-toggle-q1)))
-  qt2 (multi @reset (macro 10 (on-press press-virtualkey layer-toggle-q2)))
-  lay (tap-dance 200 (@taipo (multi @reset (on-release tap-virtualkey layer-toggle-lay))))
+          (on-press release-virtualkey layer-while-held-q1)
+          (on-press release-virtualkey layer-while-held-q2))
+
+  qt1 (on-press press-virtualkey layer-while-held-q1)
+  qt2 (on-press press-virtualkey layer-while-held-q2)
 
   bse (multi @reset (layer-switch bse))
-  ext (layer-toggle ext)
-  num (layer-toggle num)
-  sym (layer-toggle sym)
-  fun (layer-toggle fun)
+
+  ;; XXX(wont-fix): Can't `(tap-dance n one-shot toggle)` back to `bse`.
+  crd (tap-dance 200
+        ((one-shot-release 2000 (layer-while-held taipo))
+         @taipo))
+
+  ext (layer-while-held ext)
+  num (layer-while-held num)
+  sym (layer-while-held sym)
+  ;; fun (layer-while-held fun)
 
   sa  (one-shot 2000 lalt)
   sm  (one-shot 2000 lmet)
@@ -69,6 +73,10 @@
   sc  (one-shot 2000 lctrl)
 
   ★   nop0
+
+  bspc (switch
+         (lsft) del break
+         () bspc break)
   )
 
 #|
@@ -114,8 +122,8 @@
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    home pgdn pgup end  _    _
   _    @sa  @sm  @ss  @sc  _    _    ret  ◀    ▼    ▲    ▶    _
-  _    _    _    _    _    _    _    _    bspc tab  ins  esc
-  _    _    @sym           bspc           @sym _    _    _
+  _    _    _    _    _    _    _    _   @bspc tab  ins  esc
+  _    _    @sym           @bspc          @sym _    _    _
   )
 
 (deflayer num
@@ -136,11 +144,11 @@
   _    _    _              _              _    _    _    _
   )
 
-(deflayer fun
-  _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    @sa  @sm  @ss  @sc  _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _              _              _    _    _    _
-  )
+;; (deflayer fun
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    @sa  @sm  @ss  @sc  _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _              _              _    _    _    _
+;;   )
