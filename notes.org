@@ -1,2 +1,5 @@
+* Taipo
+** TODO Accordion one-shot mods (keeping one-shot layer chains)
+** TODO Per-hand chord sets
 * TODO Shebang line for kanata configs?
-- But how access argv name?
+- But how ref config path?
