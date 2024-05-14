@@ -76,6 +76,18 @@
   (                TB1    ) (macro spc 10 @taipo-hold)
   (                    TB2) (macro (on-press tap-virtualkey bspc) 10 @taipo-hold)
 {{CHORDS}}
+  (R A) (macro (on-press tap-virtualkey taipo-lmet))
+  (R A TB1) (macro right 10 @taipo-hold)
+  (R A TB2) (macro pgup 10 @taipo-hold)
+  (I E) (macro (on-press tap-virtualkey taipo-lsft))
+  (I E TB1) (macro left 10 @taipo-hold)
+  (I E TB2) (macro pgdn 10 @taipo-hold)
+  (S O) (macro (on-press tap-virtualkey taipo-lalt))
+  (S O TB1) (macro up 10 @taipo-hold)
+  (S O TB2) (macro home 10 @taipo-hold)
+  (N T) (macro (on-press tap-virtualkey taipo-lctl))
+  (N T TB1) (macro down 10 @taipo-hold)
+  (N T TB2) (macro end 10 @taipo-hold)
   )
 
 (defchords taipo-meta 5000
