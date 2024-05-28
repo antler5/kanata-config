@@ -1,0 +1,185 @@
+;; SPDX-FileCopyrightText: 2024 antlers <antlers@illucid.net>
+;;
+;; SPDX-License-Identifier: GPL-3.0-or-later
+
+(defcfg
+  sequence-timeout 2000
+  sequence-input-mode visible-backspaced
+  sequence-always-on true)
+
+(defsrc
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt rmet cmp  rctl
+  )
+
+#| magic_strdy_angle_mod |#
+(deflayer bse
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  @crd v    m    l    c    p    XX   b    @★   u    o    q    @crd XX
+  @ext s    t    r    d    y    XX   f    n    e    a    i    @ext
+  x    k    j    g    w    XX   XX   z    h    ,    .    /
+  XX   XX   @num           spc            @num XX   XX   XX
+  )
+
+(include taipo.kbd)
+
+;; Keeping for reference
+;;
+;; (defseq git-status (g S-(i i)  t))
+;; (defseq git-status (g   nop0   nop1 t))
+;; (defseq git-log    (g S-nop0   nop1 t))
+;; (defseq git-reflog (g   nop0 S-nop1 t))
+;; (defseq git-idk    (g S-(nop0 nop1) t))
+;; (deffakekeys git-status (macro g i t spc s t a t u s))
+;; (deffakekeys git-log    (macro g i t spc l o g))
+;; (deffakekeys git-reflog (macro g i t spc r e f l o g))
+;; (deffakekeys git-idk    (macro g i t spc i d k))
+
+(defseq seq-0 (a nop0))
+(deffakekeys seq-0 (macro a (unmod o)))
+(defseq seq-1 (b nop0))
+(deffakekeys seq-1 (macro b (unmod e)))
+(defseq seq-2 (c nop0))
+(deffakekeys seq-2 (macro c (unmod y)))
+(defseq seq-3 (d nop0))
+(deffakekeys seq-3 (macro d (unmod y)))
+(defseq seq-4 (e nop0))
+(deffakekeys seq-4 (macro e (unmod u)))
+(defseq seq-5 (g nop0))
+(deffakekeys seq-5 (macro g (unmod y)))
+(defseq seq-6 (i nop0))
+(deffakekeys seq-6 (macro i (unmod o n)))
+(defseq seq-7 (l nop0))
+(deffakekeys seq-7 (macro l (unmod k)))
+(defseq seq-8 (m nop0))
+(deffakekeys seq-8 (macro m (unmod e n t)))
+(defseq seq-9 (n nop0))
+(deffakekeys seq-9 (macro n (unmod i o n)))
+(defseq seq-10 (o nop0))
+(deffakekeys seq-10 (macro o (unmod a)))
+(defseq seq-11 (p nop0))
+(deffakekeys seq-11 (macro p (unmod y)))
+(defseq seq-12 (q nop0))
+(deffakekeys seq-12 (macro q (unmod u e n)))
+(defseq seq-13 (r nop0))
+(deffakekeys seq-13 (macro r (unmod l)))
+(defseq seq-14 (s nop0))
+(deffakekeys seq-14 (macro s (unmod k)))
+(defseq seq-15 (t nop0))
+(deffakekeys seq-15 (macro t (unmod m e n t)))
+(defseq seq-16 (u nop0))
+(deffakekeys seq-16 (macro u (unmod e)))
+(defseq seq-17 (y nop0))
+(deffakekeys seq-17 (macro y (unmod p)))
+(defseq seq-18 (. nop0))
+(deffakekeys seq-18 (macro . (unmod o)))
+(defseq seq-19 (spc r t))
+(deffakekeys seq-19 (macro spc (unmod p r)))
+
+(defvirtualkeys
+  layer-toggle-q1 (layer-while-held q1)
+  layer-toggle-q2 (layer-while-held q2)
+  bspc (switch
+         (lsft) del break
+         () bspc break)
+  )
+
+(defalias
+  reset (multi
+          (on-press release-virtualkey layer-toggle-q1)
+          (on-press release-virtualkey layer-toggle-q2))
+
+  bse (multi @reset (layer-switch bse))
+  q1  (on-press toggle-virtualkey layer-toggle-q1)
+  q2  (on-press toggle-virtualkey layer-toggle-q2)
+
+  ;; XXX(wont-fix): Can't `(tap-dance n one-shot toggle)` back to `bse`.
+  crd (tap-dance 200
+        ((one-shot-release 2000 (layer-while-held taipo))
+         @taipo
+         @q2))
+
+  ext (layer-while-held ext)
+  num (layer-while-held num)
+  sym (layer-while-held sym)
+  ;; fun (layer-while-held fun)
+
+  sa  (one-shot 2000 lalt)
+  sm  (one-shot 2000 lmet)
+  ss  (one-shot 2000 lshft)
+  sc  (one-shot 2000 lctrl)
+
+  ★   nop0
+
+  bspc (on-press tap-virtualkey bspc)
+  )
+
+#|
+(deflayer blank
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _    _    _
+  )
+|#
+
+(deflayer q1
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    q    w    e    r    t    y    u    i    o    p    _    _    _
+  _    a    s    d    f    g    h    j    k    l    ;    _    _
+  _    z    x    c    v    b    n    m    ,    .    /    _
+  _    _    _              _              _    _    _    _
+  )
+
+(deflayer q2
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    q    w    e    r    t    XX   y    u    i    o    p    _    _
+  _    a    s    d    f    g    XX   h    j    k    l    ;    _
+  z    x    c    v    b    XX   XX   n    m    _    _    _
+  _    _    _              _              _    _    _    _
+  )
+
+(deflayer ext
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    home pgdn pgup end  _    _
+  _    @sa  @sm  @ss  @sc  _    _    ret  ◀    ▼    ▲    ▶    _
+  _    _    _    _    _    _    _    _   @bspc tab  ins  esc
+  _    _    @sym           @bspc          @sym _    _    _
+  )
+
+(deflayer num
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    7    8    9    0    _    _
+  _    @sa  @sm  @ss  @sc  _    _    _    4    5    6    0    _
+  _    _    _    _    _    _    _    _    1    2    3    0
+  _    _    _              _              _    _    _    _
+  )
+
+(deflayer sym
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    ]    [    _    _    _
+  _    @sa  @sm  @ss  @sc  _    _    ;    _    S-0  S-9  _    _
+  _    _    _    _    _    _    _    _    _    S-]  S-[  _
+  _    _    _              _              _    _    _    _
+  )
+
+;; (deflayer fun
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    @sa  @sm  @ss  @sc  _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _              _              _    _    _    _
+;;   )

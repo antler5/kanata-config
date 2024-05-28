@@ -1,0 +1,247 @@
+;; SPDX-FileCopyrightText: 2024 antlers <antlers@illucid.net>
+;;
+;; SPDX-License-Identifier: GPL-3.0-or-later
+
+(defalias
+  tar (chord taipo R)
+  tas (chord taipo S)
+  tan (chord taipo N)
+  tai (chord taipo I)
+  taa (chord taipo A)
+  tao (chord taipo O)
+  tat (chord taipo T)
+  tae (chord taipo E)
+  ta1 (chord taipo TB1)
+  ta2 (chord taipo TB2)
+  tmr (chord taipo-meta R)
+  tms (chord taipo-meta S)
+  tmn (chord taipo-meta N)
+  tmi (chord taipo-meta I)
+  tma (chord taipo-meta A)
+  tmo (chord taipo-meta O)
+  tmt (chord taipo-meta T)
+  tme (chord taipo-meta E)
+  tm1 (chord taipo TB1)
+  tm2 (chord taipo TB2))
+
+(defvirtualkeys
+  taipo-hold (one-shot-release 2000 (layer-while-held taipo))
+  layer-toggle-taipo (layer-while-held taipo)
+  layer-toggle-taipo-meta (layer-while-held taipo-meta)
+  taipo-lmet (one-shot-release 2000 lmet)
+  taipo-lsft (one-shot-release 2000 lsft)
+  taipo-lalt (one-shot-release 2000 lalt)
+  taipo-lctl (one-shot-release 2000 lctl)
+  )
+
+(defseq vfn-1 (nop1 1))
+(defvirtualkeys vfn-1 (multi f1))
+(defseq vfn-2 (nop1 2))
+(defvirtualkeys vfn-2 (multi f2))
+(defseq vfn-3 (nop1 3))
+(defvirtualkeys vfn-3 (multi f3))
+(defseq vfn-4 (nop1 4))
+(defvirtualkeys vfn-4 (multi f4))
+(defseq vfn-5 (nop1 5))
+(defvirtualkeys vfn-5 (multi f5))
+(defseq vfn-6 (nop1 6))
+(defvirtualkeys vfn-6 (multi f6))
+(defseq vfn-7 (nop1 7))
+(defvirtualkeys vfn-7 (multi f7))
+(defseq vfn-8 (nop1 8))
+(defvirtualkeys vfn-8 (multi f8))
+(defseq vfn-9 (nop1 9))
+(defvirtualkeys vfn-9 (multi f9))
+(defseq vfn-10 (nop1 0 0))
+(defvirtualkeys vfn-10 (multi f10))
+(defseq vfn-11 (nop1 0 1))
+(defvirtualkeys vfn-11 (multi f11))
+(defseq vfn-12 (nop1 0 2))
+(defvirtualkeys vfn-12 (multi f12))
+(defseq vfn-13 (nop1 0 3))
+(defvirtualkeys vfn-13 (multi f13))
+(defseq vfn-14 (nop1 0 4))
+(defvirtualkeys vfn-14 (multi f14))
+(defseq vfn-15 (nop1 0 5))
+(defvirtualkeys vfn-15 (multi f15))
+(defseq vfn-16 (nop1 0 6))
+(defvirtualkeys vfn-16 (multi f16))
+(defseq vfn-17 (nop1 0 7))
+(defvirtualkeys vfn-17 (multi f17))
+(defseq vfn-18 (nop1 0 8))
+(defvirtualkeys vfn-18 (multi f18))
+(defseq vfn-19 (nop1 0 9))
+(defvirtualkeys vfn-19 (multi f19))
+
+
+(defalias
+  0 0
+  1 1
+  2 2
+  3 3
+  4 4
+  5 5
+  6 6
+  7 7
+  8 8
+  9 9
+  taipo (on-press toggle-virtualkey layer-toggle-taipo)
+  taipo-meta (on-press toggle-virtualkey layer-toggle-taipo-meta)
+  taipo-hold (on-press tap-virtualkey taipo-hold)
+  )
+
+(deflayer taipo
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    @tar @tas @tan @tai _    _    _    @tai @tan @tas @tar _    _
+  _    @taa @tao @tat @tae _    _    _    @tae @tat @tao @taa _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    @ta1           @ta2           @ta1 _    _    _
+  )
+
+(deflayer taipo-meta
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    @tmr @tms @tmn @tmi _    _    _    @tmi @tmn @tms @tmr _    _
+  _    @tma @tmo @tmt @tme _    _    _    @tme @tmt @tmo @tma _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    @tm1           @tm2           @tm1 _    _    _
+  )
+
+(defchords taipo 5000
+  ;; (R S N I A O T E TB1 TB2)
+  (R S N I A O T E        ) @taipo-meta
+  (                TB1    ) (macro spc 10 @taipo-hold)
+  (                    TB2) (macro (on-press tap-virtualkey bspc) 10 @taipo-hold)
+  (A) (macro a 10 @taipo-hold)
+  (A TB1) (macro S-a 10 @taipo-hold)
+  (A TB2) (macro S-, 10 @taipo-hold)
+  (R S) (macro b 10 @taipo-hold)
+  (R S TB1) (macro S-b 10 @taipo-hold)
+  (R S TB2) (macro @9 10 @taipo-hold)
+  (O E) (macro c 10 @taipo-hold)
+  (O E TB1) (macro S-c 10 @taipo-hold)
+  (O E TB2) (macro 1 10 @taipo-hold)
+  (A E) (macro d 10 @taipo-hold)
+  (A E TB1) (macro S-d 10 @taipo-hold)
+  (A E TB2) (macro S-2 10 @taipo-hold)
+  (E) (macro e 10 @taipo-hold)
+  (E TB1) (macro S-e 10 @taipo-hold)
+  (E TB2) (macro S-9 10 @taipo-hold)
+  (S I) (macro f 10 @taipo-hold)
+  (S I TB1) (macro S-f 10 @taipo-hold)
+  (S I TB2) (macro @6 10 @taipo-hold)
+  (R I) (macro g 10 @taipo-hold)
+  (R I TB1) (macro S-g 10 @taipo-hold)
+  (R I TB2) (macro S-3 10 @taipo-hold)
+  (T E) (macro h 10 @taipo-hold)
+  (T E TB1) (macro S-h 10 @taipo-hold)
+  (T E TB2) (macro @0 10 @taipo-hold)
+  (I) (macro i 10 @taipo-hold)
+  (I TB1) (macro S-i 10 @taipo-hold)
+  (I TB2) (macro S-0 10 @taipo-hold)
+  (N A) (macro j 10 @taipo-hold)
+  (N A TB1) (macro S-j 10 @taipo-hold)
+  (N A TB2) (macro = 10 @taipo-hold)
+  (I O) (macro k 10 @taipo-hold)
+  (I O TB1) (macro S-k 10 @taipo-hold)
+  (I O TB2) (macro + 10 @taipo-hold)
+  (A O) (macro l 10 @taipo-hold)
+  (A O TB1) (macro S-l 10 @taipo-hold)
+  (A O TB2) (macro @4 10 @taipo-hold)
+  (R E) (macro m 10 @taipo-hold)
+  (R E TB1) (macro S-m 10 @taipo-hold)
+  (R E TB2) (macro S-4 10 @taipo-hold)
+  (N) (macro n 10 @taipo-hold)
+  (N TB1) (macro S-n 10 @taipo-hold)
+  (N TB2) (macro S-[ 10 @taipo-hold)
+  (O) (macro o 10 @taipo-hold)
+  (O TB1) (macro S-o 10 @taipo-hold)
+  (O TB2) (macro { 10 @taipo-hold)
+  (S N) (macro p 10 @taipo-hold)
+  (S N TB1) (macro S-p 10 @taipo-hold)
+  (S N TB2) (macro @7 10 @taipo-hold)
+  (A T) (macro q 10 @taipo-hold)
+  (A T TB1) (macro S-q 10 @taipo-hold)
+  (A T TB2) (macro @3 10 @taipo-hold)
+  (R) (macro r 10 @taipo-hold)
+  (R TB1) (macro S-r 10 @taipo-hold)
+  (R TB2) (macro S-. 10 @taipo-hold)
+  (S) (macro s 10 @taipo-hold)
+  (S TB1) (macro S-s 10 @taipo-hold)
+  (S TB2) (macro S-] 10 @taipo-hold)
+  (T) (macro t 10 @taipo-hold)
+  (T TB1) (macro S-t 10 @taipo-hold)
+  (T TB2) (macro [ 10 @taipo-hold)
+  (O T) (macro u 10 @taipo-hold)
+  (O T TB1) (macro S-u 10 @taipo-hold)
+  (O T TB2) (macro @2 10 @taipo-hold)
+  (S E) (macro v 10 @taipo-hold)
+  (S E TB1) (macro S-v 10 @taipo-hold)
+  (S E TB2) (macro S-8 10 @taipo-hold)
+  (I A) (macro w 10 @taipo-hold)
+  (I A TB1) (macro S-w 10 @taipo-hold)
+  (I A TB2) (macro S-7 10 @taipo-hold)
+  (R T) (macro x 10 @taipo-hold)
+  (R T TB1) (macro S-x 10 @taipo-hold)
+  (R T TB2) (macro S-6 10 @taipo-hold)
+  (N I) (macro y 10 @taipo-hold)
+  (N I TB1) (macro S-y 10 @taipo-hold)
+  (N I TB2) (macro @5 10 @taipo-hold)
+  (R N) (macro z 10 @taipo-hold)
+  (R N TB1) (macro S-z 10 @taipo-hold)
+  (R N TB2) (macro @8 10 @taipo-hold)
+  (S T) (macro / 10 @taipo-hold)
+  (S T TB1) (macro \ 10 @taipo-hold)
+  (S T TB2) (macro S-\ 10 @taipo-hold)
+  (N O) (macro - 10 @taipo-hold)
+  (N O TB1) (macro S-- 10 @taipo-hold)
+  (N O TB2) (macro S-5 10 @taipo-hold)
+  (R O) (macro S-; 10 @taipo-hold)
+  (R O TB1) (macro ; 10 @taipo-hold)
+  (R O TB2) (macro nop9 10 @taipo-hold)
+  (I T) (macro S-/ 10 @taipo-hold)
+  (I T TB1) (macro S-1 10 @taipo-hold)
+  (I T TB2) (macro nop9 10 @taipo-hold)
+  (N E) (macro , 10 @taipo-hold)
+  (N E TB1) (macro . 10 @taipo-hold)
+  (N E TB2) (macro S-grv 10 @taipo-hold)
+  (S A) (macro ' 10 @taipo-hold)
+  (S A TB1) (macro S-' 10 @taipo-hold)
+  (S A TB2) (macro grv 10 @taipo-hold)
+  (S N I) (macro tab 10 @taipo-hold)
+  (S N I TB1) (macro del 10 @taipo-hold)
+  (S N I TB2) (macro nop1 10 @taipo-hold)
+  (O T E) (macro ret 10 @taipo-hold)
+  (O T E TB1) (macro esc 10 @taipo-hold)
+  (O T E TB2) (macro esc 10 @taipo-hold)
+  (R A) (macro (on-press tap-virtualkey taipo-lmet) 10 @taipo-hold)
+  (R A TB1) (macro right 10 @taipo-hold)
+  (R A TB2) (macro pgup 10 @taipo-hold)
+  (I E) (macro (on-press tap-virtualkey taipo-lsft) 10 @taipo-hold)
+  (I E TB1) (macro left 10 @taipo-hold)
+  (I E TB2) (macro pgdn 10 @taipo-hold)
+  (S O) (macro (on-press tap-virtualkey taipo-lalt) 10 @taipo-hold)
+  (S O TB1) (macro up 10 @taipo-hold)
+  (S O TB2) (macro home 10 @taipo-hold)
+  (N T) (macro (on-press tap-virtualkey taipo-lctl) 10 @taipo-hold)
+  (N T TB1) (macro down 10 @taipo-hold)
+  (N T TB2) (macro end 10 @taipo-hold)
+
+  )
+
+(defchords taipo-meta 5000
+  (R S N I A O T E) @taipo-meta
+  ;; (      S E Y) spc
+  ;; (A R T      ) caps ;; should technically be shift lock, probably need to use fake keys for that
+  ;; (A R        ) bspc
+  ;; (  R T      ) del
+  ;; (      S E  ) C-c
+  ;; (        E Y) C-v
+  ;; (A          ) home
+  ;; (  R        ) up
+  ;; (    T      ) end
+  ;; (      S    ) left
+  ;; (        E  ) down
+  ;; (          Y) rght
+  )
