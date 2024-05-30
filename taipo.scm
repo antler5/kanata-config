@@ -75,10 +75,10 @@
     ((  S N I        ) "tab" "del" "nop1")
     ((          O T E) "ret" "esc" "esc") ; XXX: altgr?
 
-    ((R       A      ) "(on-press tap-virtualkey taipo-lmet)" "right" "pgup")
-    ((      I       E) "(on-press tap-virtualkey taipo-lsft)" "left"  "pgdn")
-    ((  S       O    ) "(on-press tap-virtualkey taipo-lalt)" "up"    "home")
-    ((    N       T  ) "(on-press tap-virtualkey taipo-lctl)" "down"  "end")
+    ;; ((R       A      ) "(on-press tap-virtualkey taipo-lmet)" "right" "pgup")
+    ;; ((      I       E) "(on-press tap-virtualkey taipo-lsft)" "left"  "pgdn")
+    ;; ((  S       O    ) "(on-press tap-virtualkey taipo-lalt)" "up"    "home")
+    ;; ((    N       T  ) "(on-press tap-virtualkey taipo-lctl)" "down"  "end")
     ))
 
 (define (make-subst pattern item)
