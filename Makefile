@@ -2,7 +2,7 @@
 # 
 # SPDX-License-Identifier: CC0-1.0
 
-build: magic-strdy.kbd taipo.kbd
+build: magic-strdy.kbd taipo.kbd neats.kbd
 
 %.kbd: %.scm %.kbd.in
 	./$<
