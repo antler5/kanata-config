@@ -16,10 +16,12 @@ make
 
 ## Authenticating
 
-You may verify that each commit in this branch has been signed by an
+You could verify that each commit in this branch has been signed by an
 authorized contributer via GNU Guix's
 [authentication](https://guix.gnu.org/manual/en/html_node/Invoking-guix-git-authenticate.html)
 mechanism.
+
+i haven't been doing it for weeks tho lol
 
 ``` bash
 git remote add keyring 'https://github.com/antler5/keyring'
